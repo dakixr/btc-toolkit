@@ -1,2 +1,4 @@
-cmc_key: "INSERT API KEY"
-cryptocompare_key: "INSERT API KEY"
+# CryptoMarketCap
+cmc: "INSERT API KEY"
+# CryptoCompare
+cryptocompare: "INSERT API KEY"
