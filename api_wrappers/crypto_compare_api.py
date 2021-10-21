@@ -15,4 +15,5 @@ class cc(object):
         data = req.get("https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&allData=true").json()['Data']['Data']
         df = pd.DataFrame(data)
         df['timestamp'] = [datetime.datetime.fromtimestamp(d) for d in df.time]
+        df['i'] = [ i for i in range(len(df))]
         return df

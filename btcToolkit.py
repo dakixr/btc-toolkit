@@ -2,8 +2,8 @@ import argparse
 import yaml
 from yaml.loader import SafeLoader
 from api_wrappers import crypto_compare_api as cc_api
-import pandas as pd
-import matplotlib.pyplot as plt
+import btc_views
+
 
 def main():
 
@@ -22,11 +22,7 @@ def main():
 
     # Testing to represent all BTC data in log scale
     df = cc.get_all_btc_daily()
-    plt.style.use('fivethirtyeight')
-    plt.plot(df.timestamp, df.close)
-    plt.xticks(rotation=45)
-    plt.yscale("log")
-    plt.show()
+    btc_views.log_fitted(df)
 
     
 
