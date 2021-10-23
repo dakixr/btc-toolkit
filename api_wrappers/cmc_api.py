@@ -1,12 +1,13 @@
 import json
 import requests as req
+from api_wrappers import api_config
 
 class cmc(object):
 
     api_key = None
     
-    def __init__(self, api_key, testing = False) -> None:
-        self.api_key = 'b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c' if testing else api_key
+    def __init__(self, testing = False) -> None:
+        self.api_key = 'b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c' if testing else api_config.cmc_key
         self.base_url = 'https://sandbox-api.coinmarketcap.com/v1' if testing else 'https://pro-api.coinmarketcap.com/v1'
 
         if testing:
