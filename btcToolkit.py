@@ -22,8 +22,12 @@ def main():
 
     ###################################################################################
 
-    btc.log_fit()
-    btc.log()
+    btc.log_fit(view="loglog")
+    #btc.log()
+    #btc.log_curves()
+    #btc.rasnac_fit(view="log")
+    btc.rasnac_fit(view="loglog")
+    #btc.fair_value()
     btc.plot()
 
 
