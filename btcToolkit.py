@@ -22,14 +22,20 @@ def main():
 
     ###################################################################################
 
-    btc.log_fit(view="loglog")
-    #btc.log()
-    #btc.log_curves()
-    #btc.rasnac_fit(view="log")
-    btc.rasnac_fit(view="loglog")
-    #btc.fair_value()
-    btc.plot()
+    # Video 1 - Modelo Logaritmico Bitcoin
+    """btc.price(view="normal")
+    btc.price(view="log")
+    btc.model_log(view="log")
+    btc.oscilator_log_model()
+    btc.plot()"""
 
+    # Video 2 - Mejorando el Modelo Logaritmico | BITCOIN
+    btc.price(view="log")
+    btc.model_log(view="log")
+    btc.model_rasnac()
+    btc.model_rasnac(view="loglog")
+    btc.oscilator_rasnac()
+    btc.plot()
 
 
 if __name__ == "__main__":

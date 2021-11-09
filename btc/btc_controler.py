@@ -14,12 +14,12 @@ class btc_controller(object):
         "normal": self.view.plt_normal
         }
 
-    def rasnac_fit(self, view = "log"):
+    def model_rasnac(self, view = "log", name = "BTC - Regresión robusta RASNAC"):
 
         df = self.model.get_ransac_fit()
 
         self.func_view[view](
-            "RASNAC_FIT",
+            name,
             df.timestamp,
             df.close,
             df.rasnac_fit
@@ -35,51 +35,61 @@ class btc_controller(object):
             y_data=df.close[df.inlier_mask],
             label="Inliners")
 
-    def fair_value(self, view = "normal"):
+    def oscilator_rasnac(self, view = "normal", name = "BTC - Oscilador RASNAC"):
 
         df = self.model.get_ransac_fit()
 
         self.func_view[view](
-            "Fair value",
+            name,
             df.timestamp,
-            #(df.close/df.rasnac_fit) #/ [ (1/(x * 1.43 * 10**-5))+38  for x in range(1,len(df.close)+1) ]
-            #(df.close/df.rasnac_fit) * [  x for x in range(1,len(df.close)+1) ]
             np.log(df.close/df.rasnac_fit)
+        )
+
+        self.view.plt_add_line(y=0)
+
+
+    def oscilator_log_model(self, view = "normal", name = "BTC - Oscilador Modelo Logaritmico"):
+
+        df = self.model.get_log_fitted()
+
+        self.func_view[view](
+            name,
+            df.timestamp,
+            np.log(df.close/df.btc_log_curve)
 
         )
         
         self.view.plt_add_line(y=0)
 
-    def log_fit(self, view = "log"):
+    def model_log(self, view = "log", name = "BTC - Regresión Logarítmica"):
         """Plots all BTC historical price fitted with a logarithmic curve -> y = e^(a * date + b).
            Log scale."""
 
         df = self.model.get_log_fitted()
 
         self.func_view[view](
-            "BTC Logarithmic fit",
+            name,
             df.timestamp,             # x axis
             df.close,                 # BTC histotical data
             df.btc_log_curve)         # Logarithmic curve fitted to BTC price
     
-    def log(self, view = "log"):
-        """Plots all BTC historical price. 
-           Log scale."""
+    def price(self, view = "log", name = "BTC - Precio histórico"):
+        """Plots all BTC historical price. """
 
         df = self.model.get_histo_daily()
 
         self.func_view[view](
-            "BTC",
+            name,
             df.timestamp,             # x axis
             df.close)                 # BTC histotical data
 
-    def log_curves(self, n_lines_over = 7, n_lines_under = 2, delta = 0.7, view = "log"):
+    def model_log_curves(self, n_lines_over = 7, n_lines_under = 2, delta = 0.7, view = "log", name = "BTC - Modelo de Curvas Logarítmicas"):
 
         df = self.model.get_histo_daily()
         curves = self.model.get_log_curves(n_lines_over, n_lines_under, delta)
 
         self.func_view[view](
-            "BTC logarithmic curves Model",
+            name,
             df.timestamp,
             df.close,
             *curves)
